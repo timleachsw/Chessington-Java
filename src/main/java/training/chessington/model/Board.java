@@ -54,13 +54,25 @@ public class Board {
         return !(coords.getRow() > 7 || coords.getRow() < 0 || coords.getCol() > 7 || coords.getCol() < 0);
     }
 
+    public boolean isEmpty(Coordinates coords) {
+        return get(coords) == null;
+    }
+
     public boolean isEnemyPiece(Coordinates coords, PlayerColour colour) {
-        Piece that = get(coords);
-        // first, check it's not null
-        if (that == null) {
+        // first, check it's not empty
+        if (isEmpty(coords)) {
             return false;
         }
         // then, check it's the other colour
-        return that.getColour() != colour;
+        return get(coords).getColour() != colour;
+    }
+
+    public boolean isOwnPiece(Coordinates coords, PlayerColour colour) {
+        // first, check it's not empty
+        if (isEmpty(coords)) {
+            return false;
+        }
+        // then, check it's the same colour
+        return get(coords).getColour() == colour;
     }
 }
