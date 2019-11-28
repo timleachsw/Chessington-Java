@@ -6,6 +6,7 @@ import training.chessington.model.Move;
 import training.chessington.model.PlayerColour;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Knight extends AbstractPiece {
@@ -15,6 +16,27 @@ public class Knight extends AbstractPiece {
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
-        return new ArrayList<>();
+        List<Move> allowedMoves = new LinkedList<>();
+
+        // generate options
+        List<Coordinates> potentialMoves = List.of(
+                from.plus(1, 2),
+                from.plus(2, 1),
+                from.plus(-1, 2),
+                from.plus(-2, 1),
+                from.plus(1, -2),
+                from.plus(2, -1),
+                from.plus(-1, -2),
+                from.plus(-2, -1)
+        );
+
+        // iterate through, adding to list if allowed
+        for (Coordinates potential: potentialMoves) {
+            if (board.isInBounds(potential) && !board.isOwnPiece(potential, colour)) {
+                allowedMoves.add(new Move(from, potential));
+            }
+        }
+
+        return allowedMoves;
     }
 }
