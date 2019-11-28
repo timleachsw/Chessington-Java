@@ -28,7 +28,6 @@ public class Pawn extends AbstractPiece {
         // if it hasn't moved yet (i.e. is on row 1 for black, 6 for white)
         // note - doesn't check move history but row, therefore is assuming the board has been setup
         // for a normal chess game
-
         if (from.getRow() == (isBlack ? 1 : 6)) {
             // is on start row therefore hasn't moved yet
             newRow = oldRow + (isBlack ? 2 : -2);
