@@ -2,6 +2,9 @@ package training.chessington.model;
 
 import training.chessington.model.pieces.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Board {
 
     private Piece[][] board = new Piece[8][8];
@@ -74,5 +77,40 @@ public class Board {
         }
         // then, check it's the same colour
         return get(coords).getColour() == colour;
+    }
+
+    public List<Coordinates> raycast(Coordinates from, Direction direction) {
+        List<Coordinates> ray = new LinkedList<>();
+
+        // generate unit (under infinity-norm) vector in direction
+        int[] dirVector = {0, 0};
+        if (direction == Direction.NORTHWEST || direction == Direction.NORTH || direction == Direction.NORTHEAST) {
+            dirVector[1] = -1;
+        }
+        if (direction == Direction.SOUTHWEST || direction == Direction.SOUTH || direction == Direction.SOUTHEAST) {
+            dirVector[1] = 1;
+        }
+        if (direction == Direction.NORTHWEST || direction == Direction.WEST || direction == Direction.SOUTHWEST) {
+            dirVector[0] = -1;
+        }
+        if (direction == Direction.NORTHEAST || direction == Direction.EAST || direction == Direction.SOUTHEAST) {
+            dirVector[0] = 1;
+        }
+
+        // march in that direction until we're off the board
+        for (int i = 1; i < 8; i++) {
+            // next coordinate
+            Coordinates next = from.plus(i * dirVector[0], i * dirVector[1]);
+
+            // off board?
+            if (!isInBounds(next)) {
+                break;
+            }
+
+            // if not, add
+            ray.add(next);
+        }
+
+        return ray;
     }
 }
