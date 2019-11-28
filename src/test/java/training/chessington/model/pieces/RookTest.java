@@ -32,7 +32,8 @@ public class RookTest {
                 new Move(coords, new Coordinates(5, 4)),
                 new Move(coords, new Coordinates(3, 4)),
                 new Move(coords, new Coordinates(2, 4)),
-                new Move(coords, new Coordinates(1, 4))
+                new Move(coords, new Coordinates(1, 4)),
+                new Move(coords, new Coordinates(0, 4))
         };
 
         // act
@@ -177,17 +178,16 @@ public class RookTest {
         board.placePiece(rookCoords, rook);
         board.placePiece(pawnCoords, pawn);
         Move[] allowedMoves = {
-                new Move(rookCoords, new Coordinates(4, 7)),
                 new Move(rookCoords, new Coordinates(4, 6)),
                 new Move(rookCoords, new Coordinates(4, 5)),
                 new Move(rookCoords, new Coordinates(4, 4)),
-                new Move(rookCoords, new Coordinates(7, 4)),
-                new Move(rookCoords, new Coordinates(6, 4)),
-                new Move(rookCoords, new Coordinates(5, 4)),
-                new Move(rookCoords, new Coordinates(3, 4)),
-                new Move(rookCoords, new Coordinates(2, 4)),
-                new Move(rookCoords, new Coordinates(1, 4)),
-                new Move(rookCoords, new Coordinates(0, 4))
+                new Move(rookCoords, new Coordinates(7, 7)),
+                new Move(rookCoords, new Coordinates(6, 7)),
+                new Move(rookCoords, new Coordinates(5, 7)),
+                new Move(rookCoords, new Coordinates(3, 7)),
+                new Move(rookCoords, new Coordinates(2, 7)),
+                new Move(rookCoords, new Coordinates(1, 7)),
+                new Move(rookCoords, new Coordinates(0, 7))
         };
 
         // act
@@ -208,18 +208,17 @@ public class RookTest {
         board.placePiece(rookCoords, rook);
         board.placePiece(pawnCoords, pawn);
         Move[] allowedMoves = {
-                new Move(rookCoords, new Coordinates(4, 7)),
                 new Move(rookCoords, new Coordinates(4, 6)),
                 new Move(rookCoords, new Coordinates(4, 5)),
                 new Move(rookCoords, new Coordinates(4, 4)),
                 new Move(rookCoords, new Coordinates(4, 3)),
-                new Move(rookCoords, new Coordinates(7, 4)),
-                new Move(rookCoords, new Coordinates(6, 4)),
-                new Move(rookCoords, new Coordinates(5, 4)),
-                new Move(rookCoords, new Coordinates(3, 4)),
-                new Move(rookCoords, new Coordinates(2, 4)),
-                new Move(rookCoords, new Coordinates(1, 4)),
-                new Move(rookCoords, new Coordinates(0, 4))
+                new Move(rookCoords, new Coordinates(7, 7)),
+                new Move(rookCoords, new Coordinates(6, 7)),
+                new Move(rookCoords, new Coordinates(5, 7)),
+                new Move(rookCoords, new Coordinates(3, 7)),
+                new Move(rookCoords, new Coordinates(2, 7)),
+                new Move(rookCoords, new Coordinates(1, 7)),
+                new Move(rookCoords, new Coordinates(0, 7))
         };
 
         // act

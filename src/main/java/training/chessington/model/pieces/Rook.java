@@ -1,20 +1,22 @@
 package training.chessington.model.pieces;
 
-import training.chessington.model.Board;
-import training.chessington.model.Coordinates;
-import training.chessington.model.Move;
-import training.chessington.model.PlayerColour;
+import training.chessington.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rook extends AbstractPiece {
+public class Rook extends AbstractRayMover {
     public Rook(PlayerColour colour) {
         super(PieceType.ROOK, colour);
     }
 
     @Override
-    public List<Move> getAllowedMoves(Coordinates from, Board board) {
-        return new ArrayList<>();
+    protected List<Direction> getMoveDirections() {
+        return List.of(
+                Direction.NORTH,
+                Direction.EAST,
+                Direction.SOUTH,
+                Direction.WEST
+        );
     }
 }
