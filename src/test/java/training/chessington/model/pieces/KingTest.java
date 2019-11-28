@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class KingTest {
     @Test
-    public void KingMovesProperlyFromCentre() {
+    public void kingMovesProperlyFromCentre() {
         // arrange
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
@@ -40,7 +40,7 @@ public class KingTest {
     }
 
     @Test
-    public void KingInTopLeft() {
+    public void kingInTopLeft() {
         // arrange
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
@@ -60,7 +60,7 @@ public class KingTest {
     }
 
     @Test
-    public void KingInTopRight() {
+    public void kingInTopRight() {
         // arrange
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
@@ -80,7 +80,7 @@ public class KingTest {
     }
 
     @Test
-    public void KingInBottomLeft() {
+    public void kingInBottomLeft() {
         // arrange
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
@@ -100,7 +100,7 @@ public class KingTest {
     }
 
     @Test
-    public void KingInBottomRight() {
+    public void kingInBottomRight() {
         // arrange
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
@@ -120,7 +120,7 @@ public class KingTest {
     }
 
     @Test
-    public void KingAdjacentToOwnPiece() {
+    public void kingAdjacentToOwnPiece() {
         // arrange
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
@@ -147,7 +147,7 @@ public class KingTest {
     }
 
     @Test
-    public void KingAdjacentToEnemyPiece() {
+    public void kingAdjacentToEnemyPiece() {
         // arrange
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
