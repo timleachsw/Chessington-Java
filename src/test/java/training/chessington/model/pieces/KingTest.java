@@ -20,6 +20,7 @@ public class KingTest {
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
         Coordinates coords = new Coordinates(4, 4);
+        board.placePiece(coords, king);
         Move[] allowedMoves = {
                 new Move(coords, new Coordinates(3, 3)),
                 new Move(coords, new Coordinates(3, 4)),
@@ -44,6 +45,7 @@ public class KingTest {
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
         Coordinates coords = new Coordinates(0, 0);
+        board.placePiece(coords, king);
         Move[] allowedMoves = {
                 new Move(coords, new Coordinates(0, 1)),
                 new Move(coords, new Coordinates(1, 1)),
@@ -63,6 +65,7 @@ public class KingTest {
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
         Coordinates coords = new Coordinates(0, 7);
+        board.placePiece(coords, king);
         Move[] allowedMoves = {
                 new Move(coords, new Coordinates(0, 6)),
                 new Move(coords, new Coordinates(1, 6)),
@@ -82,6 +85,7 @@ public class KingTest {
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
         Coordinates coords = new Coordinates(7, 0);
+        board.placePiece(coords, king);
         Move[] allowedMoves = {
                 new Move(coords, new Coordinates(7, 1)),
                 new Move(coords, new Coordinates(6, 1)),
@@ -101,6 +105,7 @@ public class KingTest {
         Board board = Board.empty();
         Piece king = new King(PlayerColour.WHITE);
         Coordinates coords = new Coordinates(7, 7);
+        board.placePiece(coords, king);
         Move[] allowedMoves = {
                 new Move(coords, new Coordinates(7, 6)),
                 new Move(coords, new Coordinates(6, 6)),
@@ -109,6 +114,61 @@ public class KingTest {
 
         // act
         List<Move> moves = king.getAllowedMoves(coords, board);
+
+        // assert
+        assertThat(moves).containsExactlyInAnyOrder(allowedMoves);
+    }
+
+    @Test
+    public void KingAdjacentToOwnPiece() {
+        // arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.WHITE);
+        Piece pawn = new Pawn(PlayerColour.WHITE);
+        Coordinates kingCoords = new Coordinates(4, 4);
+        Coordinates pawnCoords = new Coordinates(4, 5);
+        board.placePiece(kingCoords, king);
+        board.placePiece(pawnCoords, pawn);
+        Move[] allowedMoves = {
+                new Move(kingCoords, new Coordinates(3, 3)),
+                new Move(kingCoords, new Coordinates(3, 4)),
+                new Move(kingCoords, new Coordinates(3, 5)),
+                new Move(kingCoords, new Coordinates(4, 3)),
+                new Move(kingCoords, new Coordinates(5, 3)),
+                new Move(kingCoords, new Coordinates(5, 4)),
+                new Move(kingCoords, new Coordinates(5, 5))
+        };
+
+        // act
+        List<Move> moves = king.getAllowedMoves(kingCoords, board);
+
+        // assert
+        assertThat(moves).containsExactlyInAnyOrder(allowedMoves);
+    }
+
+    @Test
+    public void KingAdjacentToEnemyPiece() {
+        // arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.WHITE);
+        Piece pawn = new Pawn(PlayerColour.BLACK);
+        Coordinates kingCoords = new Coordinates(4, 4);
+        Coordinates pawnCoords = new Coordinates(4, 5);
+        board.placePiece(kingCoords, king);
+        board.placePiece(pawnCoords, pawn);
+        Move[] allowedMoves = {
+                new Move(kingCoords, new Coordinates(3, 3)),
+                new Move(kingCoords, new Coordinates(3, 4)),
+                new Move(kingCoords, new Coordinates(3, 5)),
+                new Move(kingCoords, new Coordinates(4, 5)),
+                new Move(kingCoords, new Coordinates(4, 3)),
+                new Move(kingCoords, new Coordinates(5, 3)),
+                new Move(kingCoords, new Coordinates(5, 4)),
+                new Move(kingCoords, new Coordinates(5, 5))
+        };
+
+        // act
+        List<Move> moves = king.getAllowedMoves(kingCoords, board);
 
         // assert
         assertThat(moves).containsExactlyInAnyOrder(allowedMoves);

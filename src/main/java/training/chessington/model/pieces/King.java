@@ -24,7 +24,10 @@ public class King extends AbstractPiece {
                 Coordinates potential = new Coordinates(from.getRow() + i, from.getCol() + j);
 
                 // check valid move
-                if (!(i == 0 && j == 0) && board.isInBounds(potential)) {
+                if (!(i == 0 && j == 0)  // can't move to self
+                        && board.isInBounds(potential)  // can't leave board
+                        && (board.get(potential) == null || board.get(potential).getColour() != colour)  // can only move to empty space, or capture
+                ) {
                     allowedMoves.add(new Move(from, new Coordinates(from.getRow() + i, from.getCol() + j)));
                 }
             }
