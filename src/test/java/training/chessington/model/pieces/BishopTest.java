@@ -137,4 +137,51 @@ public class BishopTest {
         // assert
         assertThat(moves).containsExactlyInAnyOrder(allowedMoves);
     }
+
+    @Test
+    public void bishopBlockedByOwnPiece() {
+        // arrange
+        Board board = Board.empty();
+        Bishop bishop = new Bishop(PlayerColour.WHITE);
+        Pawn pawn = new Pawn(PlayerColour.WHITE);
+        Coordinates bishopCoords = new Coordinates(7, 7);
+        Coordinates pawnCoords = new Coordinates(3, 3);
+        board.placePiece(bishopCoords, bishop);
+        board.placePiece(pawnCoords, pawn);
+        Move[] allowedMoves = {
+                new Move(bishopCoords, new Coordinates(6, 6)),
+                new Move(bishopCoords, new Coordinates(5, 5)),
+                new Move(bishopCoords, new Coordinates(4, 4))
+        };
+
+        // act
+        List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
+
+        // assert
+        assertThat(moves).containsExactlyInAnyOrder(allowedMoves);
+    }
+
+    @Test
+    public void bishopBlockedByEnemyPiece() {
+        // arrange
+        Board board = Board.empty();
+        Bishop bishop = new Bishop(PlayerColour.WHITE);
+        Pawn pawn = new Pawn(PlayerColour.BLACK);
+        Coordinates bishopCoords = new Coordinates(7, 7);
+        Coordinates pawnCoords = new Coordinates(3, 3);
+        board.placePiece(bishopCoords, bishop);
+        board.placePiece(pawnCoords, pawn);
+        Move[] allowedMoves = {
+                new Move(bishopCoords, new Coordinates(6, 6)),
+                new Move(bishopCoords, new Coordinates(5, 5)),
+                new Move(bishopCoords, new Coordinates(4, 4)),
+                new Move(bishopCoords, new Coordinates(3, 3))
+        };
+
+        // act
+        List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
+
+        // assert
+        assertThat(moves).containsExactlyInAnyOrder(allowedMoves);
+    }
 }

@@ -28,6 +28,8 @@ public class Bishop extends AbstractPiece {
                 // allowable move if empty or enemy piece
                 if (!board.isOwnPiece(potential, colour)) {
                     allowedMoves.add(new Move(from, potential));
+                } else {
+                    break;
                 }
 
                 // if it's an enemy piece, however, we have to stop there
