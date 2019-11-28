@@ -15,21 +15,25 @@ public class Pawn extends AbstractPiece {
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
+        // this boolean comes in useful
+        boolean isBlack = colour == PlayerColour.BLACK;
+
+        // result to return
         ArrayList<Move> allowedMoves = new ArrayList<>();
 
-        // white moves up one square, black moves down one square
-        boolean isBlack = colour == PlayerColour.BLACK;
-        int oldRow = from.getRow();
-        int newRow = oldRow + (isBlack ? 1 : -1);
-
-        // if piece standing in front, or at edge of board, can't move at all
-        if (newRow < 0 || newRow > 7 || board.get(new Coordinates(newRow, from.getCol())) != null) {
-            // empty move list (will do capturing next probably)
+        // can't move if at edge of board
+        if (from.getRow() == (isBlack ? 7 : 0)) {
             return allowedMoves;
         }
 
-        // add move
-        allowedMoves.add(new Move(from, new Coordinates(newRow, from.getCol())));
+        // white moves up one square, black moves down one square
+        int oldRow = from.getRow();
+        int newRow = oldRow + (isBlack ? 1 : -1);
+
+        // if square in front empty, can move one space ahead
+        if (board.get(new Coordinates(newRow, from.getCol())) == null) {
+            allowedMoves.add(new Move(from, new Coordinates(newRow, from.getCol())));
+        }
 
         // if it hasn't moved yet (i.e. is on row 1 for black, 6 for white)
         // note - doesn't check move history but row, therefore is assuming the board has been setup
