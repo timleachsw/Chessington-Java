@@ -6,6 +6,7 @@ import training.chessington.model.Move;
 import training.chessington.model.PlayerColour;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Pawn extends AbstractPiece {
@@ -19,7 +20,7 @@ public class Pawn extends AbstractPiece {
         boolean isBlack = colour == PlayerColour.BLACK;
 
         // result to return
-        ArrayList<Move> allowedMoves = new ArrayList<>();
+        List<Move> allowedMoves = new LinkedList<>();
 
         // can't move if at edge of board
         if (from.getRow() == (isBlack ? 7 : 0)) {
