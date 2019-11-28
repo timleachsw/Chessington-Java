@@ -173,4 +173,27 @@ public class KingTest {
         // assert
         assertThat(moves).containsExactlyInAnyOrder(allowedMoves);
     }
+
+    @Test
+    public void kingCannotMoveIntoCheck() {
+        // arrange
+        Board board = Board.empty();
+        King king = new King(PlayerColour.WHITE);
+        Queen queen = new Queen(PlayerColour.BLACK);
+        Coordinates kingCoords = new Coordinates(7, 4);
+        Coordinates queenCoords = new Coordinates(0, 3);
+        Move[] allowableMoves = {
+                new Move(kingCoords, kingCoords.plus(-1, 0)),
+                new Move(kingCoords, kingCoords.plus(-1, 1)),
+                new Move(kingCoords, kingCoords.plus(0, 1))
+        };
+
+        // act
+        board.placePiece(kingCoords, king);
+        board.placePiece(queenCoords, queen);
+        List<Move> moves = king.getAllowedMoves(kingCoords, board);
+
+        // assert
+        assertThat(moves).containsExactlyInAnyOrder(allowableMoves);
+    }
 }
