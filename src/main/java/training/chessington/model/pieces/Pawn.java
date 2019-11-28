@@ -28,17 +28,34 @@ public class Pawn extends AbstractPiece {
 
         // white moves up one square, black moves down one square
         int oldRow = from.getRow();
+        int oldCol = from.getCol();
         int direction = (isBlack ? 1 : -1);  // the direction this piece moves in
 
         // if square in front empty, can move one (or two) spaces ahead
-        if (board.get(new Coordinates(oldRow + direction, from.getCol())) == null) {
-            allowedMoves.add(new Move(from, new Coordinates(oldRow + direction, from.getCol())));
+        if (board.get(new Coordinates(oldRow + direction, oldCol)) == null) {
+            allowedMoves.add(new Move(from, new Coordinates(oldRow + direction, oldCol)));
 
             // if it hasn't moved yet (i.e. is on row 1 for black, 6 for white) and space 2 ahead is clear
             // note - doesn't check move history but row, therefore is assuming the board has been setup
             // for a normal chess game
-            if (from.getRow() == (isBlack ? 1 : 6) && board.get(new Coordinates(oldRow + direction * 2, from.getCol())) == null) {
-                allowedMoves.add(new Move(from, new Coordinates(oldRow + direction * 2, from.getCol())));
+            if (from.getRow() == (isBlack ? 1 : 6) && board.get(new Coordinates(oldRow + direction * 2, oldCol)) == null) {
+                allowedMoves.add(new Move(from, new Coordinates(oldRow + direction * 2, oldCol)));
+            }
+        }
+
+        // can capture diagonally, check row 1 ahead and column on either side
+        if (oldCol + 1 <= 7) {
+            Coordinates aheadLeft = new Coordinates(oldRow + direction, oldCol + 1);
+            Piece pieceAheadLeft = board.get(aheadLeft);
+            if (pieceAheadLeft != null && pieceAheadLeft.getColour() != colour /* must be a different colour to capture! */) {
+                allowedMoves.add(new Move(from, aheadLeft));
+            }
+        }
+        if (oldCol - 1 >= 0) {
+            Coordinates aheadRight = new Coordinates(oldRow + direction, oldCol - 1);
+            Piece pieceAheadRight = board.get(aheadRight);
+            if (pieceAheadRight != null && pieceAheadRight.getColour() != colour) {
+                allowedMoves.add(new Move(from, aheadRight));
             }
         }
 
