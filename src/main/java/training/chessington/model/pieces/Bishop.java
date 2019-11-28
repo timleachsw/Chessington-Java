@@ -2,8 +2,6 @@ package training.chessington.model.pieces;
 
 import training.chessington.model.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Bishop extends AbstractRayMover {
