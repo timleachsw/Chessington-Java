@@ -22,8 +22,8 @@ public class Pawn extends AbstractPiece {
         int oldRow = from.getRow();
         int newRow = oldRow + (isBlack ? 1 : -1);
 
-        // if piece standing in front, can't move at all
-        if (board.get(new Coordinates(newRow, from.getCol())) != null) {
+        // if piece standing in front, or at edge of board, can't move at all
+        if (newRow < 0 || newRow > 7 || board.get(new Coordinates(newRow, from.getCol())) != null) {
             // empty move list (will do capturing next probably)
             return allowedMoves;
         }
