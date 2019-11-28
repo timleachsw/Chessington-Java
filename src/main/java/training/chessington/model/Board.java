@@ -49,4 +49,8 @@ public class Board {
     public void placePiece(Coordinates coords, Piece piece) {
         board[coords.getRow()][coords.getCol()] = piece;
     }
+
+    public boolean isInBounds(Coordinates coords) {  // not static because in theory could have differently sized boards
+        return !(coords.getRow() > 7 || coords.getRow() < 0 || coords.getCol() > 7 || coords.getCol() < 0);
+    }
 }
