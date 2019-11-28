@@ -28,22 +28,18 @@ public class Pawn extends AbstractPiece {
 
         // white moves up one square, black moves down one square
         int oldRow = from.getRow();
-        int newRow = oldRow + (isBlack ? 1 : -1);
+        int direction = (isBlack ? 1 : -1);  // the direction this piece moves in
 
-        // if square in front empty, can move one space ahead
-        if (board.get(new Coordinates(newRow, from.getCol())) == null) {
-            allowedMoves.add(new Move(from, new Coordinates(newRow, from.getCol())));
-        }
+        // if square in front empty, can move one (or two) spaces ahead
+        if (board.get(new Coordinates(oldRow + direction, from.getCol())) == null) {
+            allowedMoves.add(new Move(from, new Coordinates(oldRow + direction, from.getCol())));
 
-        // if it hasn't moved yet (i.e. is on row 1 for black, 6 for white)
-        // note - doesn't check move history but row, therefore is assuming the board has been setup
-        // for a normal chess game
-        if (from.getRow() == (isBlack ? 1 : 6)) {
-            // is on start row therefore hasn't moved yet
-            newRow = oldRow + (isBlack ? 2 : -2);
-
-            // add move
-            allowedMoves.add(new Move(from, new Coordinates(newRow, from.getCol())));
+            // if it hasn't moved yet (i.e. is on row 1 for black, 6 for white) and space 2 ahead is clear
+            // note - doesn't check move history but row, therefore is assuming the board has been setup
+            // for a normal chess game
+            if (from.getRow() == (isBlack ? 1 : 6) && board.get(new Coordinates(oldRow + direction * 2, from.getCol())) == null) {
+                allowedMoves.add(new Move(from, new Coordinates(oldRow + direction * 2, from.getCol())));
+            }
         }
 
         return allowedMoves;
