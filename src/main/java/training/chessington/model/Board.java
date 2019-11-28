@@ -53,4 +53,14 @@ public class Board {
     public boolean isInBounds(Coordinates coords) {  // not static because in theory could have differently sized boards
         return !(coords.getRow() > 7 || coords.getRow() < 0 || coords.getCol() > 7 || coords.getCol() < 0);
     }
+
+    public boolean isEnemyPiece(Coordinates coords, PlayerColour colour) {
+        Piece that = get(coords);
+        // first, check it's not null
+        if (that == null) {
+            return false;
+        }
+        // then, check it's the other colour
+        return that.getColour() != colour;
+    }
 }

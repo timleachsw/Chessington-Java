@@ -26,7 +26,7 @@ public class King extends AbstractPiece {
                 // check valid move
                 if (!(i == 0 && j == 0)  // can't move to self
                         && board.isInBounds(potential)  // can't leave board
-                        && (board.get(potential) == null || board.get(potential).getColour() != colour)  // can only move to empty space, or capture
+                        && !board.isEnemyPiece(potential, colour)  // can only move to empty space, or capture
                 ) {
                     allowedMoves.add(new Move(from, new Coordinates(from.getRow() + i, from.getCol() + j)));
                 }

@@ -47,15 +47,13 @@ public class Pawn extends AbstractPiece {
         // can capture diagonally, check row 1 ahead and column on either side
         if (oldCol + 1 <= 7) {
             Coordinates aheadLeft = new Coordinates(oldRow + direction, oldCol + 1);
-            Piece pieceAheadLeft = board.get(aheadLeft);
-            if (pieceAheadLeft != null && pieceAheadLeft.getColour() != colour /* must be a different colour to capture! */) {
+            if (board.isEnemyPiece(aheadLeft, colour)) {
                 allowedMoves.add(new Move(from, aheadLeft));
             }
         }
         if (oldCol - 1 >= 0) {
             Coordinates aheadRight = new Coordinates(oldRow + direction, oldCol - 1);
-            Piece pieceAheadRight = board.get(aheadRight);
-            if (pieceAheadRight != null && pieceAheadRight.getColour() != colour) {
+            if (board.isEnemyPiece(aheadRight, colour)) {
                 allowedMoves.add(new Move(from, aheadRight));
             }
         }
