@@ -79,6 +79,32 @@ public class Board {
         return get(coords).getColour() == colour;
     }
 
+    public boolean isUnderAttackByTeam(Coordinates coords, PlayerColour colour) {
+        // note: this doesn't return accurate results if the square given is empty, because of pawns' weird move patterns
+        // iterate through all squares on board
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Coordinates current = new Coordinates(i, j);
+                Piece currentPiece = get(current);
+
+                // is there a piece here?
+                if (currentPiece == null) {
+                    continue;
+                }
+
+                // is it of the relevant team?
+                if (currentPiece.getColour() == colour) {
+                    // do this piece's allowable moves include the relevant square?
+                    if (currentPiece.getAllowedMoves(current, this).contains(new Move(current, coords))) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     public List<Coordinates> raycast(Coordinates from, Direction direction) {
         List<Coordinates> ray = new LinkedList<>();
 

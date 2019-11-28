@@ -1,7 +1,10 @@
 package training.chessington.model;
 
 import org.junit.Test;
+import training.chessington.model.pieces.King;
 import training.chessington.model.pieces.Piece;
+
+import java.util.List;
 
 import static training.chessington.model.pieces.Piece.PieceType.PAWN;
 import static training.chessington.model.pieces.PieceAssert.*;
@@ -46,5 +49,22 @@ public class BoardTest {
         // Assert
         assertThat(board.get(from)).isNull();
         assertThat(board.get(to)).isColour(PlayerColour.WHITE).isPiece(PAWN);
+    }
+
+    @Test
+    public void canTellIfSquaresAreUnderAttack() {
+        // arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.WHITE);
+        Coordinates coords = new Coordinates(4, 4);
+
+        // act
+        board.placePiece(coords, king);
+        boolean underAttack = board.isUnderAttackByTeam(
+                new Coordinates(3, 3), PlayerColour.WHITE
+        );
+
+        // assert
+        assertThat(underAttack).isTrue();
     }
 }
