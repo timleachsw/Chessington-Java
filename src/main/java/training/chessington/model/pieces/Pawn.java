@@ -45,16 +45,10 @@ public class Pawn extends AbstractPiece {
         }
 
         // can capture diagonally, check row 1 ahead and column on either side
-        if (oldCol + 1 <= 7) {
-            Coordinates aheadLeft = new Coordinates(oldRow + direction, oldCol + 1);
-            if (board.isEnemyPiece(aheadLeft, colour)) {
-                allowedMoves.add(new Move(from, aheadLeft));
-            }
-        }
-        if (oldCol - 1 >= 0) {
-            Coordinates aheadRight = new Coordinates(oldRow + direction, oldCol - 1);
-            if (board.isEnemyPiece(aheadRight, colour)) {
-                allowedMoves.add(new Move(from, aheadRight));
+        for (Move potential: getPotentialCaptures(from, board)) {
+            // if there's an enemy piece in the "to" field, this is allowed
+            if (board.isEnemyPiece(potential.getTo(), colour)) {
+                allowedMoves.add(potential);
             }
         }
 
