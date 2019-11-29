@@ -32,8 +32,9 @@ public class Knight extends AbstractPiece {
 
         // iterate through, adding to list if allowed
         for (Coordinates potential: potentialMoves) {
-            if (board.isInBounds(potential) && !board.isOwnPiece(potential, colour)) {
-                allowedMoves.add(new Move(from, potential));
+            Move move = new Move(from, potential);
+            if (board.isInBounds(potential) && !board.isOwnPiece(potential, colour) && !board.wouldResultInCheck(move, colour)) {
+                allowedMoves.add(move);
             }
         }
 

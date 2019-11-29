@@ -34,20 +34,26 @@ public class Pawn extends AbstractPiece {
 
         // if square in front empty, can move one (or two) spaces ahead
         if (board.get(new Coordinates(oldRow + direction, oldCol)) == null) {
-            allowedMoves.add(new Move(from, new Coordinates(oldRow + direction, oldCol)));
+            Move move = new Move(from, new Coordinates(oldRow + direction, oldCol));
+            if (!board.wouldResultInCheck(move, colour)) {
+                allowedMoves.add(move);
+            }
 
             // if it hasn't moved yet (i.e. is on row 1 for black, 6 for white) and space 2 ahead is clear
             // note - doesn't check move history but row, therefore is assuming the board has been setup
             // for a normal chess game
             if (from.getRow() == (isBlack ? 1 : 6) && board.get(new Coordinates(oldRow + direction * 2, oldCol)) == null) {
-                allowedMoves.add(new Move(from, new Coordinates(oldRow + direction * 2, oldCol)));
+                move = new Move(from, new Coordinates(oldRow + direction * 2, oldCol));
+                if (!board.wouldResultInCheck(move, colour)) {
+                    allowedMoves.add(move);
+                }
             }
         }
 
         // can capture diagonally, check row 1 ahead and column on either side
         for (Move potential: getPotentialCaptures(from, board)) {
             // if there's an enemy piece in the "to" field, this is allowed
-            if (board.isEnemyPiece(potential.getTo(), colour)) {
+            if (board.isEnemyPiece(potential.getTo(), colour) && !board.wouldResultInCheck(potential, colour)) {
                 allowedMoves.add(potential);
             }
         }

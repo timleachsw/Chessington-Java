@@ -26,7 +26,11 @@ public abstract class AbstractRayMover extends AbstractPiece {
             for (Coordinates potential: ray) {
                 // allowable move if empty or enemy piece
                 if (!board.isOwnPiece(potential, colour)) {
-                    allowedMoves.add(new Move(from, potential));
+                    // would this move result in check?
+                    Move move = new Move(from, potential);
+                    if (!board.wouldResultInCheck(move, colour)) {
+                        allowedMoves.add(move);
+                    }
                 } else {
                     break;
                 }
