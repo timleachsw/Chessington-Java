@@ -138,4 +138,16 @@ public class Board {
 
         return ray;
     }
+
+    public Board clone() {
+        Board newBoard = Board.empty();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Coordinates coords = new Coordinates(i, j);
+                newBoard.placePiece(coords, get(coords));
+            }
+        }
+
+        return newBoard;
+    }
 }

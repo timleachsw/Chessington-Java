@@ -1,13 +1,12 @@
 package training.chessington.model;
 
 import org.junit.Test;
-import training.chessington.model.pieces.King;
-import training.chessington.model.pieces.Piece;
+import training.chessington.model.pieces.*;
 
-import java.util.List;
 
 import static training.chessington.model.pieces.Piece.PieceType.PAWN;
 import static training.chessington.model.pieces.PieceAssert.*;
+import static training.chessington.model.BoardAssert.*;
 import static org.assertj.core.api.Assertions.*;
 
 public class BoardTest {
@@ -66,5 +65,36 @@ public class BoardTest {
 
         // assert
         assertThat(underAttack).isTrue();
+    }
+
+    @Test
+    public void cloneWorksCorrectly() {
+        // arrange
+        Board originalBoard = Board.empty();
+        Piece[] pieces = {
+                new King(PlayerColour.WHITE),
+                new Bishop(PlayerColour.WHITE),
+                new Knight(PlayerColour.WHITE),
+                new King(PlayerColour.BLACK),
+                new Queen(PlayerColour.BLACK),
+                new Rook(PlayerColour.BLACK)
+        };
+        Coordinates[] coords = {
+                new Coordinates(7, 4),
+                new Coordinates(5, 6),
+                new Coordinates(4, 2),
+                new Coordinates(0, 4),
+                new Coordinates(4, 4),
+                new Coordinates(3, 0)
+        };
+        for (int i = 0; i < 6; i++) {
+            originalBoard.placePiece(coords[i], pieces[i]);
+        }
+
+        // act
+        Board newBoard = originalBoard.clone();
+
+        // assert
+        assertThat(newBoard).isIdenticalTo(originalBoard);
     }
 }
