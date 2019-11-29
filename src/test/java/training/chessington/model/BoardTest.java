@@ -130,4 +130,37 @@ public class BoardTest {
         // assert
         assertThat(newBoard).isIdenticalTo(originalBoard);
     }
+
+    @Test
+    public void kingNotInCheck() {
+        // arrange
+        Board board = Board.empty();
+        King king = new King(PlayerColour.WHITE);
+        Coordinates coords = new Coordinates(7, 4);
+        board.placePiece(coords, king);
+
+        // act
+        boolean isInCheck = board.isInCheck(PlayerColour.WHITE);
+
+        // assert
+        assertThat(isInCheck).isFalse();
+    }
+
+    @Test
+    public void kingInCheck() {
+        // arrange
+        Board board = Board.empty();
+        King king = new King(PlayerColour.WHITE);
+        Queen queen = new Queen(PlayerColour.BLACK);
+        Coordinates kingCoords = new Coordinates(7, 4);
+        Coordinates queenCoords = new Coordinates(0, 4);
+        board.placePiece(kingCoords, king);
+        board.placePiece(queenCoords, queen);
+
+        // act
+        boolean isInCheck = board.isInCheck(PlayerColour.WHITE);
+
+        // assert
+        assertThat(isInCheck).isTrue();
+    }
 }

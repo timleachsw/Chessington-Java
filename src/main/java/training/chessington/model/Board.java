@@ -156,4 +156,8 @@ public class Board {
         preview.move(move);
         return preview;
     }
+
+    public boolean isInCheck(PlayerColour colour) {
+        return false;
+    }
 }
