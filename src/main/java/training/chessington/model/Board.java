@@ -150,4 +150,10 @@ public class Board {
 
         return newBoard;
     }
+
+    public Board previewMove(Move move) {
+        Board preview = clone();
+        preview.move(move);
+        return preview;
+    }
 }

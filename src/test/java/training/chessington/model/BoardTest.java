@@ -97,4 +97,37 @@ public class BoardTest {
         // assert
         assertThat(newBoard).isIdenticalTo(originalBoard);
     }
+
+    @Test
+    public void movePreviewWorksCorrectly() {
+        // arrange
+        Board originalBoard = Board.empty();
+        Piece[] pieces = {
+                new King(PlayerColour.WHITE),
+                new Bishop(PlayerColour.WHITE),
+                new Knight(PlayerColour.WHITE),
+                new King(PlayerColour.BLACK),
+                new Queen(PlayerColour.BLACK),
+                new Rook(PlayerColour.BLACK)
+        };
+        Coordinates[] coords = {
+                new Coordinates(7, 4),
+                new Coordinates(5, 6),
+                new Coordinates(4, 2),
+                new Coordinates(0, 4),
+                new Coordinates(4, 4),
+                new Coordinates(3, 0)
+        };
+        for (int i = 0; i < 6; i++) {
+            originalBoard.placePiece(coords[i], pieces[i]);
+        }
+        Move move = new Move(coords[0], coords[0].plus(-1, 0));
+
+        // act
+        Board newBoard = originalBoard.previewMove(move);
+        originalBoard.move(move);
+
+        // assert
+        assertThat(newBoard).isIdenticalTo(originalBoard);
+    }
 }
