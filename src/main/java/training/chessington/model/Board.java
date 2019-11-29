@@ -75,12 +75,7 @@ public class Board {
     }
 
     public boolean isOwnPiece(Coordinates coords, PlayerColour colour) {
-        // first, check it's not empty
-        if (isEmpty(coords)) {
-            return false;
-        }
-        // then, check it's the same colour
-        return get(coords).getColour() == colour;
+        return !(isEmpty(coords) || isEnemyPiece(coords, colour));
     }
 
     public boolean isUnderAttackByTeam(Coordinates coords, PlayerColour colour) {
