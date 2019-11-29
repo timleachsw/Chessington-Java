@@ -158,6 +158,40 @@ public class Board {
     }
 
     public boolean isInCheck(PlayerColour colour) {
+        // find the square with the king in
+        Coordinates kingCoords = null;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Coordinates test = new Coordinates(i, j);
+                Piece testPiece = get(test);
+                if (testPiece != null) {
+                    if (testPiece.getType() == Piece.PieceType.KING && testPiece.getColour() == colour) {
+                        kingCoords = test.plus(0, 0);  // hacky way of cloning
+                    }
+                }
+            }
+        }
+
+        if (kingCoords == null) {
+            throw new RuntimeException("King is somehow missing from board.");
+        }
+
+        PlayerColour other = colour == PlayerColour.BLACK ? PlayerColour.WHITE : PlayerColour.BLACK;
+
+        // can any pieces attack him?
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Coordinates test = new Coordinates(i, j);
+                Piece testPiece = get(test);
+                if (testPiece != null) {
+                    if (testPiece.getColour() == other && testPiece.getPotentialCaptures(test, this)
+                            .contains(new Move(test, kingCoords))) {
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false;
     }
 }
