@@ -173,7 +173,8 @@ public class Board {
         }
 
         if (kingCoords == null) {
-            throw new RuntimeException("King is somehow missing from board.");
+            // no king, so not in check!
+            return false;
         }
 
         PlayerColour other = colour == PlayerColour.BLACK ? PlayerColour.WHITE : PlayerColour.BLACK;
@@ -193,5 +194,9 @@ public class Board {
         }
 
         return false;
+    }
+
+    public boolean wouldResultInCheck(Move move, PlayerColour colour) {
+        return previewMove(move).isInCheck(colour);
     }
 }
