@@ -60,4 +60,26 @@ public class Pawn extends AbstractPiece {
 
         return allowedMoves;
     }
+
+    // pawn has different capturing rules
+    @Override
+    public List<Move> getPotentialCaptures(Coordinates from, Board board) {
+        List<Move> potentialCaptures = new LinkedList<>();
+
+        // simply the two squares in front and to either side
+        // "in front" changes based on the colour
+        int oldRow = from.getRow();
+        int oldCol = from.getCol();
+        int newRow = oldRow + (colour == PlayerColour.BLACK ? 1 : -1);
+        for (Coordinates potential: new Coordinates[]{
+                new Coordinates(newRow, oldCol + 1),
+                new Coordinates(newRow, oldCol - 1)
+        }) {
+            if (board.isInBounds(potential)) {
+                potentialCaptures.add(new Move(from, potential));
+            }
+        }
+
+        return potentialCaptures;
+    }
 }

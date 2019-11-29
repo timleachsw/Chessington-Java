@@ -16,5 +16,5 @@ public interface Piece {
     PlayerColour getColour();
 
     List<Move> getAllowedMoves(Coordinates from, Board board);
-    List<Move> getAllowedCaptures(Coordinates from, Board board);
+    List<Move> getPotentialCaptures(Coordinates from, Board board);
 }

@@ -163,7 +163,6 @@ public class KingTest {
                 new Move(kingCoords, new Coordinates(4, 5)),
                 new Move(kingCoords, new Coordinates(4, 3)),
                 new Move(kingCoords, new Coordinates(5, 3)),
-                new Move(kingCoords, new Coordinates(5, 4)),
                 new Move(kingCoords, new Coordinates(5, 5))
         };
 

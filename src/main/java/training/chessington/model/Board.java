@@ -95,7 +95,7 @@ public class Board {
                 // is it of the relevant team?
                 if (currentPiece.getColour() == colour) {
                     // do this piece's allowable moves include the relevant square?
-                    if (currentPiece.getAllowedMoves(current, this).contains(new Move(current, coords))) {
+                    if (currentPiece.getPotentialCaptures(current, this).contains(new Move(current, coords))) {
                         return true;
                     }
                 }

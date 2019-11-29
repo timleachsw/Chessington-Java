@@ -1,6 +1,11 @@
 package training.chessington.model.pieces;
 
+import training.chessington.model.Board;
+import training.chessington.model.Coordinates;
+import training.chessington.model.Move;
 import training.chessington.model.PlayerColour;
+
+import java.util.List;
 
 public abstract class AbstractPiece implements Piece {
 
@@ -10,6 +15,11 @@ public abstract class AbstractPiece implements Piece {
     protected AbstractPiece(Piece.PieceType type, PlayerColour colour) {
         this.type = type;
         this.colour = colour;
+    }
+
+    @Override
+    public List<Move> getPotentialCaptures(Coordinates from, Board board) {
+        return getAllowedMoves(from, board);
     }
 
     @Override
